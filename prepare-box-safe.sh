@@ -1,4 +1,4 @@
-
+cd ~/
 
 sudo apt install spice-vdagent --assume-yes
 sudo apt install spice-webdavd --assume-yes
@@ -52,7 +52,7 @@ sudo apt install -y openconnect network-manager-openconnect network-manager-open
 nmcli c add con-name "CLV-EMEA.clarivate.com" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
 # Starting VPN in background
-#sudo openconnect -u johannes.barnard@clarivate.com --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
+
 
 mkdir ~/code
 cd ~/code
