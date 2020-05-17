@@ -34,6 +34,7 @@ sudo systemctl enable docker
 docker --version
 sudo usermod -aG docker $USER
 
+flatpak install -y flathub com.microsoft.Teams
 
 # Install Intellij
 flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
