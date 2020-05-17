@@ -6,8 +6,8 @@ sudo apt install spice-webdavd --assume-yes
 # Remove LibreOffice
 sudo apt-get remove --purge libreoffice --assume-yes
 sudo apt-get remove --purge libreoffice* --assume-yes
-sudo apt clean
-sudo apt autoremove
+sudo apt clean -y
+sudo apt autoremove -y
 
 # Remove FireFox
 sudo apt purge -y firefox
@@ -34,6 +34,11 @@ sudo systemctl enable docker
 docker --version
 sudo usermod -aG docker $USER
 
+
+# Install Intellij
+flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
+
+
 # Install OneDrive
 sudo apt install -y onedrive
 onedrive --synchronize
@@ -52,6 +57,7 @@ sudo apt install -y openconnect network-manager-openconnect network-manager-open
 nmcli c add con-name "CLV-EMEA.clarivate.com" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
 # Starting VPN in background
+sudo openconnect --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
 
 
 mkdir ~/code
