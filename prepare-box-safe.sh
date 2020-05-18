@@ -2,7 +2,7 @@ cd ~/
 
 #sudo apt install spice-vdagent --assume-yes
 #sudo apt install spice-webdavd --assume-yes
-sudo apt-get install virtualbox-guest-additions-iso
+sudo apt-get install virtualbox-guest-additions-iso --assume-yes
 
 
 # Remove LibreOffice
