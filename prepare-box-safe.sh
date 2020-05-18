@@ -110,8 +110,7 @@ git clone http://johannes.barnard@eiddo.dev.oneplatform.build/r/1pcommon.git
 git clone https://github.com/csi-lk/aws-ses-local.git
 git clone https://github.com/hansbarnard/pop_os_helper.git
 
-cd ~/code/1p-email-engine/ && ./gradlew build
-
+echo Success!!!!!!!
 
 
 
