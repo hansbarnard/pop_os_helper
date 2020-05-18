@@ -1,85 +1,91 @@
 cd ~/
 
-#sudo apt install spice-vdagent --assume-yes
-#sudo apt install spice-webdavd --assume-yes
-sudo apt-get install virtualbox-guest-additions-iso --assume-yes
 
-
-# Remove LibreOffice
+echo Remove LibreOffice
 sudo apt-get remove --purge libreoffice --assume-yes
 sudo apt-get remove --purge libreoffice* --assume-yes
 sudo apt clean -y
 sudo apt autoremove -y
 
-# Remove FireFox
+echo Remove FireFox
 sudo apt purge -y firefox
 sudo rm -rf /usr/lib/firefox*
 
-# Install Chrome
+echo Install Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
 sudo sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update
 sudo apt-get install google-chrome-stable --assume-yes
 
-# Install SDKMan
+echo Install SDKMan
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk version
 
-# Install java
+echo Install java
 sdk install java 8.0.252-open
 
-# Install docker
+echo Install docker
 sudo apt install -y docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 docker --version
 sudo usermod -aG docker $USER
+sudo apt install -y docker-compose
 
-# Install utils
+echo Install utils
 sudo apt install -y htop
 sudo apt install -y timeshift
 sudo apt install -y gnome-tweak-tool
+sudo apt install -y awscli
+sudo apt install -y nodejs
+sudo apt install -y npm
+npm install aws-azure-login
+sudo apt install -y privoxy
 
-# Install desktop apps
+echo Install desktop apps
 flatpak install -y flathub io.dbeaver.DBeaverCommunity
 flatpak install -y flathub com.microsoft.Teams
 flatpak install -y flathub com.getpostman.Postman
 flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
-#sudo apt install -y virtualbox
 
-# Install latest VirtualBox
+
+echo Install latest VirtualBox
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
 sudo apt update
 sudo apt install -y virtualbox-6.1
 
 
-# Install OpenConnect
+echo Install OpenConnect
 sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
 
-#Adding VPN connection
+echo Adding VPN connection
 nmcli c add con-name "CLV-EMEA.clarivate.com" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
 
-# Install OneDrive
+echo Install OneDrive
 sudo apt install -y onedrive
 onedrive --synchronize
 systemctl --user enable onedrive
 systemctl --user start onedrive
-systemctl status --user onedrive
+systemctl --user status onedrive
 
-# Configure ssh
+echo Configure ssh
 tar -zxf ~/OneDrive/Pop_OS/sshconfig.tar.gz
 
+echo Configure privoxy
+sudo mv /etc/privoxy/config /etc/privoxy/config.bak
+sudo cp ~/OneDrive/Pop_OS/privoxy/config /etc/privoxy/
 
-
+echo Create code dir
 mkdir ~/code
 cd ~/code
 
-# Starting VPN in background
+echo Create OpenConnect VPN connection
 sudo openconnect --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
 
+echo Clone all repos
 git clone ssh://git@git.clarivate.io/sp/1p-kafka-engine.git
 git clone ssh://git@git.clarivate.io/pas/1p-email-engine.git
 git clone ssh://git@git.clarivate.io/sp/1p-alert-manager.git
@@ -102,7 +108,9 @@ git clone http://johannes.barnard@eiddo.dev.oneplatform.build/r/1pzuulfiltermaps
 git clone http://johannes.barnard@eiddo.dev.oneplatform.build/r/1pcommon.git
 
 git clone https://github.com/csi-lk/aws-ses-local.git
+git clone https://github.com/hansbarnard/pop_os_helper.git
 
+cd ~/code/1p-email-engine/ && ./gradlew build
 
 
 
