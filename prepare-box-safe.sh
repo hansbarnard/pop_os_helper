@@ -34,10 +34,22 @@ sudo systemctl enable docker
 docker --version
 sudo usermod -aG docker $USER
 
-flatpak install -y flathub com.microsoft.Teams
+# Install utils
+sudo apt install -y htop
+sudo apt install -y timeshift
+sudo apt install -y gnome-tweak-tool
 
-# Install Intellij
+# Install desktop apps
+flatpak install -y flathub io.dbeaver.DBeaverCommunity
+flatpak install -y flathub com.microsoft.Teams
+flatpak install -y flathub com.getpostman.Postman
 flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
+
+# Install OpenConnect
+sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
+
+#Adding VPN connection
+nmcli c add con-name "CLV-EMEA.clarivate.com" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
 
 # Install OneDrive
@@ -51,18 +63,12 @@ systemctl status --user onedrive
 tar -zxf ~/OneDrive/Pop_OS/sshconfig.tar.gz
 
 
-# Install OpenConnect
-sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
-
-#Adding VPN connection
-nmcli c add con-name "CLV-EMEA.clarivate.com" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
-
-# Starting VPN in background
-sudo openconnect --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
-
 
 mkdir ~/code
 cd ~/code
+
+# Starting VPN in background
+sudo openconnect --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
 
 git clone ssh://git@git.clarivate.io/sp/1p-kafka-engine.git
 git clone ssh://git@git.clarivate.io/pas/1p-email-engine.git
