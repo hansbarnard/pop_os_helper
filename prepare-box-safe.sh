@@ -1,7 +1,9 @@
 cd ~/
 
-sudo apt install spice-vdagent --assume-yes
-sudo apt install spice-webdavd --assume-yes
+#sudo apt install spice-vdagent --assume-yes
+#sudo apt install spice-webdavd --assume-yes
+sudo apt-get install virtualbox-guest-additions-iso
+
 
 # Remove LibreOffice
 sudo apt-get remove --purge libreoffice --assume-yes
@@ -44,6 +46,14 @@ flatpak install -y flathub io.dbeaver.DBeaverCommunity
 flatpak install -y flathub com.microsoft.Teams
 flatpak install -y flathub com.getpostman.Postman
 flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
+#sudo apt install -y virtualbox
+
+# Install latest VirtualBox
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
+sudo apt update
+sudo apt install -y virtualbox-6.1
+
 
 # Install OpenConnect
 sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
