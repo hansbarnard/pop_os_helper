@@ -1,80 +1,86 @@
 cd ~/
 
 
-echo Remove LibreOffice
+echo =======Remove LibreOffice
 sudo apt-get remove --purge libreoffice --assume-yes
 sudo apt-get remove --purge libreoffice* --assume-yes
 sudo apt clean -y
 sudo apt autoremove -y
 
-echo Remove FireFox
+echo =======Remove FireFox
 sudo apt purge -y firefox
 sudo rm -rf /usr/lib/firefox*
 
-echo Remove Chromium
+echo =======Remove Chromium
 sudo apt-get remove --purge chromium --assume-yes
 sudo apt clean -y
 sudo apt autoremove -y
 
-
+echo =======Install Flatpak
 sudo apt-get install curl --assume-yes
 sudo apt-get install flatpak --assume-yes
 sudo flatpak remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
 
-echo Install Chrome
+echo =======Install Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
 sudo sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update
 sudo apt-get install google-chrome-stable --assume-yes
 
-echo Install SDKMan
+echo =======Install SDKMan
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk version
 
-echo Install java
+echo =======Install java
 sdk install java 8.0.252-open
 
-echo Install docker
+echo =======Install docker
 sudo apt install -y docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 docker --version
 sudo usermod -aG docker $USER
+
+echo =======Install docker-compose
 sudo apt install -y docker-compose
 
-echo Install utils
+echo =======Install utils
 sudo apt install -y htop
 sudo apt install -y timeshift
 sudo apt install -y gnome-tweak-tool
 sudo apt install -y awscli
+
+echo =======Install nodejs & aws-azure-login
 sudo apt install -y nodejs
 sudo apt install -y npm
 npm install aws-azure-login
+
+echo =======Install privoxy
 sudo apt install -y privoxy
 
-echo Install desktop apps
+echo =======Install desktop apps
 flatpak install -y flathub io.dbeaver.DBeaverCommunity
 flatpak install -y flathub com.microsoft.Teams
 flatpak install -y flathub com.getpostman.Postman
 flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
 
 
-echo Install latest VirtualBox
+echo =======Install latest VirtualBox
 #wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 #sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
 #sudo apt update
 sudo apt install -y virtualbox-6.1
 
 
-echo Install OpenConnect
+echo =======Install OpenConnect
 sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
 
-echo Adding VPN connection
+echo =======Adding VPN connection
 nmcli c add con-name "CLV-EMEA.clarivate.com" ifname "AAA" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
 
-echo Install dependencies for OneDrive
+echo =======Install dependencies for OneDrive
 sudo apt install -y build-essential
 sudo apt install -y libcurl4-openssl-dev
 sudo apt install -y libsqlite3-dev
@@ -82,36 +88,37 @@ sudo apt install -y pkg-config
 curl -fsS https://dlang.org/install.sh | bash -s dmd
 sudo apt install -y libnotify-dev
 
-echo Compile and install OneDrive
+echo =======Compile and install OneDrive
 source ~/dlang/dmd-2.092.0/activate
+cd ~/Downloads
 git clone https://github.com/abraunegg/onedrive.git
 cd onedrive
 ./configure
 make clean; make;
 sudo make install
+cd ~/
 
-echo Configure and synchronize OneDrive
+echo =======Configure and synchronize OneDrive
 onedrive --synchronize
 systemctl --user enable onedrive
 systemctl --user start onedrive
 systemctl --user status onedrive
 
-echo Configure ssh
-cd ~/
+echo =======Configure ssh
 tar -zxf ~/OneDrive/Pop_OS/sshconfig.tar.gz
 
-echo Configure privoxy
+echo =======Configure privoxy
 sudo mv /etc/privoxy/config /etc/privoxy/config.bak
 sudo cp ~/OneDrive/Pop_OS/privoxy/config /etc/privoxy/
 
-echo Create code dir
+echo =======Create code dir
 mkdir ~/code
 cd ~/code
 
-echo Start VPN connection
+echo =======Start VPN connection
 sudo openconnect --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
 
-echo Clone all repos
+echo =======Clone all repos
 git clone ssh://git@git.clarivate.io/sp/1p-kafka-engine.git
 git clone ssh://git@git.clarivate.io/pas/1p-email-engine.git
 git clone ssh://git@git.clarivate.io/sp/1p-alert-manager.git
@@ -136,7 +143,7 @@ git clone http://johannes.barnard@eiddo.dev.oneplatform.build/r/1pcommon.git
 git clone https://github.com/csi-lk/aws-ses-local.git
 git clone https://github.com/hansbarnard/pop_os_helper.git
 
-echo Success!!!!!!!
+echo =======Success!!!!!!!
 
 
 
