@@ -82,7 +82,7 @@ echo Create code dir
 mkdir ~/code
 cd ~/code
 
-echo Create OpenConnect VPN connection
+echo Start VPN connection
 sudo openconnect --servercert pin-sha256:rby4MfqHAKveAOKiSdyw6tvoxp3wUk0bZGJA0zjxsGw= -b "CLV-EMEA.clarivate.com"
 
 echo Clone all repos
