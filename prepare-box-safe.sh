@@ -19,6 +19,7 @@ sudo apt autoremove -y
 
 sudo apt-get install curl --assume-yes
 sudo apt-get install flatpak --assume-yes
+sudo flatpak remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
 
 echo Install Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
@@ -89,13 +90,14 @@ cd onedrive
 make clean; make;
 sudo make install
 
-echo Onfigure and syncrhonize OneDrive
+echo Configure and synchronize OneDrive
 onedrive --synchronize
 systemctl --user enable onedrive
 systemctl --user start onedrive
 systemctl --user status onedrive
 
 echo Configure ssh
+cd ~/
 tar -zxf ~/OneDrive/Pop_OS/sshconfig.tar.gz
 
 echo Configure privoxy
