@@ -11,6 +11,15 @@ echo Remove FireFox
 sudo apt purge -y firefox
 sudo rm -rf /usr/lib/firefox*
 
+echo Remove Chromium
+sudo apt-get remove --purge chromium --assume-yes
+sudo apt clean -y
+sudo apt autoremove -y
+
+
+sudo apt-get install curl --assume-yes
+sudo apt-get install flatpak --assume-yes
+
 echo Install Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
 sudo sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
@@ -51,9 +60,9 @@ flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
 
 
 echo Install latest VirtualBox
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
-sudo apt update
+#wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+#sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
+#sudo apt update
 sudo apt install -y virtualbox-6.1
 
 
@@ -61,11 +70,26 @@ echo Install OpenConnect
 sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
 
 echo Adding VPN connection
-nmcli c add con-name "CLV-EMEA.clarivate.com" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
+nmcli c add con-name "CLV-EMEA.clarivate.com" ifname "AAA" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
 
-echo Install OneDrive
-sudo apt install -y onedrive
+echo Install dependencies for OneDrive
+sudo apt install -y build-essential
+sudo apt install -y libcurl4-openssl-dev
+sudo apt install -y libsqlite3-dev
+sudo apt install -y pkg-config
+curl -fsS https://dlang.org/install.sh | bash -s dmd
+sudo apt install -y libnotify-dev
+
+echo Compile and install OneDrive
+source ~/dlang/dmd-2.092.0/activate
+git clone https://github.com/abraunegg/onedrive.git
+cd onedrive
+./configure
+make clean; make;
+sudo make install
+
+echo Onfigure and syncrhonize OneDrive
 onedrive --synchronize
 systemctl --user enable onedrive
 systemctl --user start onedrive
