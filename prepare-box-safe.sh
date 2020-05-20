@@ -79,6 +79,10 @@ sudo apt install -y openconnect network-manager-openconnect network-manager-open
 echo =======Adding VPN connection
 nmcli c add con-name "CLV-EMEA.clarivate.com" ifname "AAA" type vpn vpn-type openconnect +vpn.data "gateway=CLV-EMEA.clarivate.com"
 
+echo =======Install Keybase
+curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
+sudo apt install ./keybase_amd64.deb --assume-yes
+
 
 echo =======Install dependencies for OneDrive
 sudo apt install -y build-essential
