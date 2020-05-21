@@ -51,10 +51,15 @@ sudo apt install -y timeshift
 sudo apt install -y gnome-tweak-tool
 sudo apt install -y awscli
 
-echo =======Install nodejs & aws-azure-login
+echo =======Install nodejs & npm
 sudo apt install -y nodejs
 sudo apt install -y npm
-npm install aws-azure-login
+
+echo =======Install aws-azure-login
+sudo curl -o /usr/local/bin/aws-azure-login https://raw.githubusercontent.com/sportradar/aws-azure-login/master/docker-launch.sh
+sudo chmod o+x /usr/local/bin/aws-azure-login
+sudo mkdir ~/.aws
+sudo cp ~/OneDrive/Pop_OS/aws/config ~/.aws
 
 echo =======Install privoxy
 sudo apt install -y privoxy
