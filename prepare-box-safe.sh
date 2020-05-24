@@ -58,8 +58,6 @@ sudo apt install -y npm
 echo =======Install aws-azure-login
 sudo curl -o /usr/local/bin/aws-azure-login https://raw.githubusercontent.com/sportradar/aws-azure-login/master/docker-launch.sh
 sudo chmod o+x /usr/local/bin/aws-azure-login
-sudo mkdir ~/.aws
-sudo cp ~/OneDrive/Pop_OS/aws/config ~/.aws
 
 echo =======Install privoxy
 sudo apt install -y privoxy
@@ -76,6 +74,9 @@ echo =======Install latest VirtualBox
 #sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
 #sudo apt update
 sudo apt install -y virtualbox-6.1
+
+echo =======Fixing DNS issue. See https://github.com/pop-os/pop/issues/773
+sudo dpkg-reconfigure resolvconf
 
 
 echo =======Install OpenConnect
@@ -115,6 +116,11 @@ systemctl --user status onedrive
 
 echo =======Configure ssh
 tar -zxf ~/OneDrive/Pop_OS/sshconfig.tar.gz
+
+echo =======Configure aws cli
+sudo mkdir ~/.aws
+sudo cp ~/OneDrive/Pop_OS/aws/config ~/.aws
+
 
 echo =======Configure privoxy
 sudo mv /etc/privoxy/config /etc/privoxy/config.bak
