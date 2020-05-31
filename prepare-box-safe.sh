@@ -148,6 +148,7 @@ git clone ssh://git@git.clarivate.io/ui/tableau.git
 git clone ssh://git@git.clarivate.io/ls-cortellis-services/fireflight.git
 git clone ssh://git@git.clarivate.io/~johannes.barnard_clarivate.com/es-loader-jenkins-jobs.git
 git clone ssh://git@git.clarivate.io/~johannes.barnard_clarivate.com/jenkins-dsl.git
+git clone ssh://git@git.clarivate.io/~johannes.barnard_clarivate.com/simple-es-loader.git
 
 git clone http://johannes.barnard@eiddo.dev.oneplatform.build/r/1pemailengine.git
 git clone http://johannes.barnard@eiddo.dev.oneplatform.build/r/1palertmanager.git
