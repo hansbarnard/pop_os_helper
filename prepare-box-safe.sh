@@ -70,9 +70,6 @@ flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
 
 
 echo =======Install latest VirtualBox
-#wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-#sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib"
-#sudo apt update
 sudo apt install -y virtualbox-6.1
 
 echo =======Fixing DNS issue. See https://github.com/pop-os/pop/issues/773
@@ -88,6 +85,11 @@ nmcli c add con-name "CLV-EMEA.clarivate.com" ifname "AAA" type vpn vpn-type ope
 echo =======Install Keybase
 curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
 sudo apt install ./keybase_amd64.deb --assume-yes
+
+echo =======Install Free Office
+curl https://www.softmaker.net/down/softmaker-freeoffice-2018_976-01_amd64.deb --output ~/Downloads/softmaker-freeoffice-2018_976-01_amd64.deb
+sudo apt install -y ~/Downloads/softmaker-freeoffice-2018_976-01_amd64.deb
+sudo /usr/share/freeoffice2018/add_apt_repo.sh
 
 
 echo =======Install dependencies for OneDrive
