@@ -44,6 +44,9 @@ sudo usermod -aG docker $USER
 
 echo =======Install docker-compose
 sudo apt install -y docker-compose
+sudo curl -L https://raw.githubusercontent.com/docker/compose/1.26.0/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+echo -e '\nexport DOCKER_COMPOSE_LOCATION='"`which docker-compose`"'\n' >> ~/.bashrc
+source ~/.bashrc
 
 echo =======Install utils
 sudo apt install -y htop
@@ -51,7 +54,7 @@ sudo apt install -y timeshift
 sudo apt install -y gnome-tweak-tool
 sudo apt install -y awscli
 
-echo =======Install nodejs & npm
+echo =======Install nodejs and npm
 sudo apt install -y nodejs
 sudo apt install -y npm
 
@@ -70,7 +73,7 @@ flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
 
 
 echo =======Install latest VirtualBox
-sudo apt install -y virtualbox-6.1
+sudo apt install -y virtualbox
 
 echo =======Fixing DNS issue. See https://github.com/pop-os/pop/issues/773
 sudo dpkg-reconfigure resolvconf
