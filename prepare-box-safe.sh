@@ -45,8 +45,8 @@ sudo usermod -aG docker $USER
 echo =======Install docker-compose
 sudo apt install -y docker-compose
 sudo curl -L https://raw.githubusercontent.com/docker/compose/1.26.0/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
-echo -e '\nexport DOCKER_COMPOSE_LOCATION='"`which docker-compose`"'\n' >> ~/.bashrc
-source ~/.bashrc
+echo -e '\nexport DOCKER_COMPOSE_LOCATION='"`which docker-compose`"'\n' >> ~/.profile
+source ~/.profile
 
 echo =======Install utils
 sudo apt install -y htop
@@ -69,7 +69,7 @@ echo =======Install desktop apps
 flatpak install -y flathub io.dbeaver.DBeaverCommunity
 flatpak install -y flathub com.microsoft.Teams
 flatpak install -y flathub com.getpostman.Postman
-flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
+sudo snap install intellij-idea-community --classic --edge
 
 
 echo =======Install latest VirtualBox
